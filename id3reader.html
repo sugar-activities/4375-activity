@@ -1,0 +1,375 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
+<html lang='en'><head><meta http-equiv="Content-Type" content="text/html;charset=utf-8"><base href='http://nedbatchelder.com'><title>Ned Batchelder: id3reader</title><link rel='stylesheet' href='/style.css' type='text/css'><link rel='stylesheet' href='/printstyle.css' type='text/css' media='print'><script type='text/javascript' src='nedbatchelder.js'></script></head><body><center><table id='logo_banner' cellpadding='0' cellspacing='0' width='100%'><tr><td id='logo' align='center'><a href='/'><img src='dodeca3_100.gif' width='100' height='120' alt='[*]'></a></td><td id='banner'><span class='path'><a href='/'>Ned Batchelder</a> : <a href='/blog'>Blog</a> | <a href='/code'>Code</a> | <a href='/text'>Text</a> | <a href='/site'>Site</a></span><br><span class='headslug'>id3reader</span><br><span class='path'>
+                    &#xbb; <a href='/'>Home</a> : <a href='/code'>Code</a> : <a href='/code/modules'>Python Modules</a></span></td></tr></table><table id='content_menu' cellpadding='0' cellspacing='0'><tr><td id='content' valign='top'><div class='body'><div id='searchwelcome'></div><p class='dateline'>
+                            Created 4 January 2004, last updated 26 March 2006
+                        </p><p class="first">Id3reader.py is a Python module that reads
+<a class="offsite" href="http://id3.org/">ID3</a> metadata tags in MP3 files.
+It can read ID3v1, ID3v2.2, ID3v2.3, or ID3v2.4 tags.
+It does not write tags at all.
+</p><blockquote class="box">As of March 2006, I am no longer maintaining this module.  If you would like to own it, feel free to take it.
+I can help you take it over if you would like.
+</blockquote><h1 id="h_Installation">Installation</h1><p>To install id3reader, just copy id3reader.py to your Python path.</p><i>Download: </i><a href="code/modules/id3reader.py">id3reader.py</a><br><h1 id="h_Usage">Usage</h1><p>Using id3reader couldn't be simpler:</p><blockquote class="code"><tt><span class="kn">import</span>&#xA0;<span class="nn">id3reader</span><br><br><span class="c">#&#xA0;Construct&#xA0;a&#xA0;reader&#xA0;from&#xA0;a&#xA0;file&#xA0;or&#xA0;filename.</span><br><span class="n">id3r</span>&#xA0;<span class="o">=</span>&#xA0;<span class="n">id3reader</span><span class="o">.</span><span class="n">Reader</span><span class="p">(</span><span class="s">&#39;my_favorite.mp3&#39;</span><span class="p">)</span><br><br><span class="c">#&#xA0;Ask&#xA0;the&#xA0;reader&#xA0;for&#xA0;ID3&#xA0;values:</span><br><span class="k">print</span>&#xA0;<span class="n">id3r</span><span class="o">.</span><span class="n">getValue</span><span class="p">(</span><span class="s">&#39;TT2&#39;</span><span class="p">)</span><br></tt></blockquote><p>In addition to whatever literal ID3 tag ids are found in the file (TP1, TIT2, etc),
+id3reader defines five pseudo ids for convenience: </p><blockquote class="code"><tt><span class="n">id3r</span><span class="o">.</span><span class="n">getValue</span><span class="p">(</span><span class="s">&#39;album&#39;</span><span class="p">)</span><br><span class="n">id3r</span><span class="o">.</span><span class="n">getValue</span><span class="p">(</span><span class="s">&#39;performer&#39;</span><span class="p">)</span><br><span class="n">id3r</span><span class="o">.</span><span class="n">getValue</span><span class="p">(</span><span class="s">&#39;title&#39;</span><span class="p">)</span><br><span class="n">id3r</span><span class="o">.</span><span class="n">getValue</span><span class="p">(</span><span class="s">&#39;track&#39;</span><span class="p">)</span><br><span class="n">id3r</span><span class="o">.</span><span class="n">getValue</span><span class="p">(</span><span class="s">&#39;year&#39;</span><span class="p">)</span><br></tt></blockquote><p>These ids find the appropriate ID3 id for the ID3 version read from the file,
+so you can get at this basic data without having to consider the different
+versions of the ID3 spec.
+</p><p>If you run id3reader from the console, it will dump the ID3 information for the
+MP3 file named as its argument.</p><h1 id="h_Coverage">Coverage</h1><p>The ID3 spec is quite extensive, and specifies functionality that I have never
+encountered in actual MP3 files.  Id3reader implements as much of the spec as I
+have seen used.  If you have files that id3reader does not properly interpret,
+please <a href="javascript:nospam(%22ned%22,%22nedbatchelder.com?subject=An%20ID3%20example%20file%22);">mail them to me</a>.
+I'll extend id3reader to read them.
+</p><h1 id="h_Changes">Changes</h1><p>5 January 2004: It wasn't reading ID3v1 tags properly,
+and had problems with empty string values.</p><p>9 January 2004: Now it reads ID3v2.3 properly, and reads unsyncronized tags.
+</p><p>13 January 2004:
+Fix unsynchronized reading,
+reads compressed frames,
+improved detection of end of frames,
+extended headers are read (but not interpreted),
+multi-string frames are interpreted,
+and the file is closed if we opened it.
+</p><p>3 August 2004:
+Add support for genres (although they're stupid), and the command-line mode will
+print strings regardless of their encoding.
+</p><p>13 September 2004:
+Better protection against non-character data when showing the data on the command line.
+</p><div class="googleads"></div><div class='comments' id='comments'>
+<h1>Comments</h1>
+
+	<div class='comment'>
+		<img class='gravatar' src='http://www.gravatar.com/avatar/5192985f04534e1ea213825177ca76f4.jpg?default=http%3A%2F%2Fnedbatchelder.com%2Fpix%2Favatar%2Fa230.jpg&amp;size=40' width='40' height='40' alt='[gravatar]'>
+		<div class='head'>
+			<span class='who'><b><a href='fusiondementes.com' rel='nofollow' target='_blank'>oziko</a></b></span>
+			<span class='when'><span class='adminlink'></span> 9:37 AM on 6 Jan 2004</span>
+		</div>
+		
+		<p class='commenttext'>
+			Sooo easy to use. it's really nice!
+		</p>
+	</div>
+	<div class='comment'>
+		<img class='gravatar' src='http://www.gravatar.com/avatar/be8d09ec591e1f9ce5ffb37ebf353530.jpg?default=http%3A%2F%2Fnedbatchelder.com%2Fpix%2Favatar%2Fa0.jpg&amp;size=40' width='40' height='40' alt='[gravatar]'>
+		<div class='head'>
+			<span class='who'><b>tobias</b></span>
+			<span class='when'><span class='adminlink'></span> 12:51 PM on 13 Jan 2004</span>
+		</div>
+		
+		<p class='commenttext'>
+			hi<br><br>this is a very cool piece of software. i use before eyed3 and my files where not read at all. with this peace of software it's so much easier to write my programs. thank you for your work and please go on :-)<br><br>tobias
+		</p>
+	</div>
+	<div class='comment'>
+		<img class='gravatar' src='http://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e.jpg?default=http%3A%2F%2Fnedbatchelder.com%2Fpix%2Favatar%2Fa117.jpg&amp;size=40' width='40' height='40' alt='[gravatar]'>
+		<div class='head'>
+			<span class='who'><b><a href='http://www.anti-particle.com' rel='nofollow' target='_blank'>Andy</a></b></span>
+			<span class='when'><span class='adminlink'></span> 5:27 PM on 17 Feb 2004</span>
+		</div>
+		
+		<p class='commenttext'>
+			Perfect!  Just what I've been looking for.  Much better at reading v2 tags than anything else I've found for python.  Keep up the good work :o)
+		</p>
+	</div>
+	<div class='comment'>
+		<img class='gravatar' src='http://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e.jpg?default=http%3A%2F%2Fnedbatchelder.com%2Fpix%2Favatar%2Fa230.jpg&amp;size=40' width='40' height='40' alt='[gravatar]'>
+		<div class='head'>
+			<span class='who'><b><a href='http://sourceforge.net/projects/file-folder-ren' rel='nofollow' target='_blank'>ianare</a></b></span>
+			<span class='when'><span class='adminlink'></span> 4:05 PM on 7 Sep 2005</span>
+		</div>
+		
+		<p class='commenttext'>
+			sweet! just what i needed... now i can incorporate renaming files by id tag in my file reanming program. Thank you very much!
+		</p>
+	</div>
+	<div class='comment'>
+		<img class='gravatar' src='http://www.gravatar.com/avatar/811a37f643a5850f539cbcc485bebfad.jpg?default=http%3A%2F%2Fnedbatchelder.com%2Fpix%2Favatar%2Fa143.jpg&amp;size=40' width='40' height='40' alt='[gravatar]'>
+		<div class='head'>
+			<span class='who'><b>Henry</b></span>
+			<span class='when'><span class='adminlink'></span> 4:27 AM on 4 Dec 2005</span>
+		</div>
+		
+		<p class='commenttext'>
+			Need a way to read ID3v1/1.1 and ID3v2.x seperately so an application can compare, copy tag, delete one or the other, etc.
+		</p>
+	</div>
+	<div class='comment'>
+		<img class='gravatar' src='http://www.gravatar.com/avatar/822ddb78b79f8eec454c47ef567ff97a.jpg?default=http%3A%2F%2Fnedbatchelder.com%2Fpix%2Favatar%2Fa10.jpg&amp;size=40' width='40' height='40' alt='[gravatar]'>
+		<div class='head'>
+			<span class='who'><b><a href='http://www.rpyron.com' rel='nofollow' target='_blank'>rpyron</a></b></span>
+			<span class='when'><span class='adminlink'></span> 3:52 PM on 20 Jan 2006</span>
+		</div>
+		
+		<p class='commenttext'>
+			In class Reader, change the initialization of self.header to:<br>    self.header = _Header()<br>It is apparently legal (though not likely) to have an MP3 file with no ID3 tags at all. <br><br>I am writing a special-purpose splitter that first copies only the data to another file, then goes back later and adds ID3 tags. I am using id3writer for this, which in turn relies on your id3reader.<br><br>id3 writer is available from <a rel='nofollow' href=http://www.comfortableshoe.co.uk/cgi-bin/blosxom.cgi/Home/Python/id3Writer.comments>http://www.comfortableshoe.co.uk/cgi-bin/blosxom.cgi/Home/Python/id3Writer.comments</a>
+		</p>
+	</div>
+	<div class='comment'>
+		<img class='gravatar' src='http://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e.jpg?default=http%3A%2F%2Fnedbatchelder.com%2Fpix%2Favatar%2Fa10.jpg&amp;size=40' width='40' height='40' alt='[gravatar]'>
+		<div class='head'>
+			<span class='who'><b><a href='http://blogs.sistes.net/Garito' rel='nofollow' target='_blank'>Garito</a></b></span>
+			<span class='when'><span class='adminlink'></span> 11:01 PM on 16 Feb 2006</span>
+		</div>
+		
+		<p class='commenttext'>
+			Hi!<br><br>I like your lib, thanks<br><br>But I need some help: how can I read comments?<br><br>If I try dump I could see them but I don't know how to read them<br><br>Thanks!
+		</p>
+	</div>
+	<div class='comment'>
+		<img class='gravatar' src='http://www.gravatar.com/avatar/96b34fbb90eb3334cc87cbb716c0c06a.jpg?default=http%3A%2F%2Fnedbatchelder.com%2Fpix%2Favatar%2Fa68.jpg&amp;size=40' width='40' height='40' alt='[gravatar]'>
+		<div class='head'>
+			<span class='who'><b><a href='http://www.timalmond.com' rel='nofollow' target='_blank'>Tim Almond</a></b></span>
+			<span class='when'><span class='adminlink'></span> 2:51 AM on 31 Mar 2006</span>
+		</div>
+		
+		<p class='commenttext'>
+			Hi Ned,<br><br>I'm trying to write something to set ID3 tags in Python using ID3-PY (<a rel='nofollow' href=http://id3-py.sourceforge.net/>http://id3-py.sourceforge.net/</a>).<br><br>Does that replace id3reader?
+		</p>
+	</div>
+	<div class='comment'>
+		<img class='gravatar' src='http://www.gravatar.com/avatar/87252b3250de72fc6af1a19f6d4487fb.jpg?default=http%3A%2F%2Fnedbatchelder.com%2Fpix%2Favatar%2Fa58.jpg&amp;size=40' width='40' height='40' alt='[gravatar]'>
+		<div class='head'>
+			<span class='who'><b>Bats</b></span>
+			<span class='when'><span class='adminlink'></span> 12:58 PM on 7 Apr 2006</span>
+		</div>
+		
+		<p class='commenttext'>
+			Hey - fabulous script, just the thing I was looking for. Great stuff, thanks a lot!
+		</p>
+	</div>
+	<div class='comment'>
+		<img class='gravatar' src='http://www.gravatar.com/avatar/ab45adea15d619a5890fd867d7ac1a2a.jpg?default=http%3A%2F%2Fnedbatchelder.com%2Fpix%2Favatar%2Fa167.jpg&amp;size=40' width='40' height='40' alt='[gravatar]'>
+		<div class='head'>
+			<span class='who'><b>Christina</b></span>
+			<span class='when'><span class='adminlink'></span> 7:39 AM on 18 Apr 2006</span>
+		</div>
+		
+		<p class='commenttext'>
+			Hey,<br><br>maybe somebody could help me in this case.<br>Beside the other informations i am reading out of mp3 files, i want to read the time of the mp3s, for example(03:45). Do you know if this is possible with id3Reader and how?<br>If it is not possible with the id3reader, how else can i get the time?<br><br>thank you<br>Christina
+		</p>
+	</div>
+	<div class='comment'>
+		<img class='gravatar' src='http://www.gravatar.com/avatar/898616c54901c89b1652778e06c517a5.jpg?default=http%3A%2F%2Fnedbatchelder.com%2Fpix%2Favatar%2Fa202.jpg&amp;size=40' width='40' height='40' alt='[gravatar]'>
+		<div class='head'>
+			<span class='who'><b>ianare</b></span>
+			<span class='when'><span class='adminlink'></span> 3:00 PM on 25 May 2006</span>
+		</div>
+		
+		<p class='commenttext'>
+			was having some problems with encodings in unicode build of wxpython. here is my solution:<br><br>    def getValue(self, id, encoding):<br>        """ Return the value for an ID3 tag id, or for a<br>            convenience label ('title', 'performer', ...),<br>            or return None if there is no such value.<br>        """<br>        if self.frames.has_key(id):<br>            if hasattr(self.frames[id], 'value'):<br>                if isinstance(self.frames[id].value, unicode):<br>                    returnValue = self.frames[id].value<br>                else:<br>                    returnValue = unicode(self.frames[id].value, encoding)               <br>                return returnValue<br>            <br>        if _simpleDataMapping.has_key(id):<br>            for id2 in _simpleDataMapping[id]:<br>                v = self.getValue(id2, encoding)<br>                if v:<br>                    if isinstance(v, unicode):<br>                        returnV = v<br>                    else:<br>                        returnV = unicode(v, encoding)               <br>                    return returnV<br>        return None<br><br>so now I can specify the encoding returned by id3reader, usage is as follows:<br>id3r = id3reader.Reader(file)<br>value = id3r.getValue(id, encoding)
+		</p>
+	</div>
+	<div class='comment'>
+		<img class='gravatar' src='http://www.gravatar.com/avatar/898616c54901c89b1652778e06c517a5.jpg?default=http%3A%2F%2Fnedbatchelder.com%2Fpix%2Favatar%2Fa202.jpg&amp;size=40' width='40' height='40' alt='[gravatar]'>
+		<div class='head'>
+			<span class='who'><b>ianare</b></span>
+			<span class='when'><span class='adminlink'></span> 3:01 PM on 25 May 2006</span>
+		</div>
+		
+		<p class='commenttext'>
+			hum the tabs didn't stick... well you should know what to do ;)
+		</p>
+	</div>
+	<div class='comment'>
+		<img class='gravatar' src='http://www.gravatar.com/avatar/2dfa126adf8ec802d1901af266cfd91d.jpg?default=http%3A%2F%2Fnedbatchelder.com%2Fpix%2Favatar%2Fa235.jpg&amp;size=40' width='40' height='40' alt='[gravatar]'>
+		<div class='head'>
+			<span class='who'><b><a href='http://chrismahan.blogpot.com/' rel='nofollow' target='_blank'>Chris Mahan</a></b></span>
+			<span class='when'><span class='adminlink'></span> 2:15 PM on 4 Sep 2006</span>
+		</div>
+		
+		<p class='commenttext'>
+			very nice. <br><br>Thanks
+		</p>
+	</div>
+	<div class='comment'>
+		<img class='gravatar' src='http://www.gravatar.com/avatar/2dfa126adf8ec802d1901af266cfd91d.jpg?default=http%3A%2F%2Fnedbatchelder.com%2Fpix%2Favatar%2Fa187.jpg&amp;size=40' width='40' height='40' alt='[gravatar]'>
+		<div class='head'>
+			<span class='who'><b><a href='http://chrismahan.blogspot.com/' rel='nofollow' target='_blank'>Chris Mahan</a></b></span>
+			<span class='when'><span class='adminlink'></span> 2:17 PM on 4 Sep 2006</span>
+		</div>
+		
+		<p class='commenttext'>
+			I can't even write my own url.
+		</p>
+	</div>
+	<div class='comment'>
+		<img class='gravatar' src='http://www.gravatar.com/avatar/e338b410fb4216f4b9b66cb7c5a07066.jpg?default=http%3A%2F%2Fnedbatchelder.com%2Fpix%2Favatar%2Fa244.jpg&amp;size=40' width='40' height='40' alt='[gravatar]'>
+		<div class='head'>
+			<span class='who'><b><a href='http://avatardom.ru/' rel='nofollow' target='_blank'>Sergey</a></b></span>
+			<span class='when'><span class='adminlink'></span> 4:14 PM on 20 Mar 2008</span>
+		</div>
+		
+		<p class='commenttext'>
+			Very, good! Thanks!<br>One problem, I can't get tags from string in zip file:<br><br><br>        z = zipfile.ZipFile("zip.zip")<br>        flist = z.namelist()<br>        for j in flist:<br>                next_mp3 = z.read(j)<br>                id3 = id3reader.Reader(next_mp3) # Not work :((
+		</p>
+	</div>
+	<div class='comment'>
+		<img class='gravatar' src='http://www.gravatar.com/avatar/08e6d710819646fd6587bdb7d05572e1.jpg?default=http%3A%2F%2Fnedbatchelder.com%2Fpix%2Favatar%2Fa136.jpg&amp;size=40' width='40' height='40' alt='[gravatar]'>
+		<div class='head'>
+			<span class='who'><b>AB</b></span>
+			<span class='when'><span class='adminlink'></span> 5:00 PM on 21 Apr 2008</span>
+		</div>
+		
+		<p class='commenttext'>
+			Hi Ned,<br><br>This is exactly what I have been looking for.<br>Absolutely fantastic!<br>Many thanks.
+		</p>
+	</div>
+	<div class='comment'>
+		<img class='gravatar' src='http://www.gravatar.com/avatar/2f030878935b5787d2431a3361c80384.jpg?default=http%3A%2F%2Fnedbatchelder.com%2Fpix%2Favatar%2Fa230.jpg&amp;size=40' width='40' height='40' alt='[gravatar]'>
+		<div class='head'>
+			<span class='who'><b><a href='http://www.aamod.co.nr/' rel='nofollow' target='_blank'>Aamod</a></b></span>
+			<span class='when'><span class='adminlink'></span> 1:55 AM on 19 Jul 2008</span>
+		</div>
+		
+		<p class='commenttext'>
+			Awesome python script. Will be definately using it in my project. Will comment about it when I get something concrete..
+		</p>
+	</div>
+	<div class='comment'>
+		<img class='gravatar' src='http://www.gravatar.com/avatar/90ba0933e713b6e85909a30995da3866.jpg?default=http%3A%2F%2Fnedbatchelder.com%2Fpix%2Favatar%2Fa145.jpg&amp;size=40' width='40' height='40' alt='[gravatar]'>
+		<div class='head'>
+			<span class='who'><b>Don</b></span>
+			<span class='when'><span class='adminlink'></span> 10:03 AM on 31 Aug 2008</span>
+		</div>
+		
+		<p class='commenttext'>
+			Hi,<br>Any one knows how to read album art of mp3 files in python?
+		</p>
+	</div>
+	<div class='comment'>
+		<img class='gravatar' src='http://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e.jpg?default=http%3A%2F%2Fnedbatchelder.com%2Fpix%2Favatar%2Fa166.jpg&amp;size=40' width='40' height='40' alt='[gravatar]'>
+		<div class='head'>
+			<span class='who'><b><a href='http://python.org' rel='nofollow' target='_blank'>buyaka</a></b></span>
+			<span class='when'><span class='adminlink'></span> 9:44 PM on 12 Dec 2008</span>
+		</div>
+		
+		<p class='commenttext'>
+			I was having problems with lists generated from the data returned by id3reader.  The problem was that if one of the fields was empty then you'd have a list of unicode type data with one NoneType in the middle which throws errors with some methods like join which expect str or unicode.  I changed the return None in def getValue to return u'None' which worked.  I don't how elegant this solution is but it worked.
+		</p>
+	</div>
+
+<div id='commentform'>
+<h2>Add a comment:</h2>
+<div>
+	<form method="post" action="http://nedbatchelder.com/code/modules/id3reader.html#commentform" id="commentformform">
+		<table width="100%" border="0" cellspacing="0" cellpadding="2">
+			<tr>
+				<td width="0%">
+					<div class='label'>name</div>
+				</td>
+				<td width="100%">
+					<input class='edit' type="text" name="f1f5ad59702ba22df134578f1111033e7" id="f1f5ad59702ba22df134578f1111033e7" size="40" value="">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class='label'>email</div>
+				</td>
+				<td>
+					<div style="display:none">
+					Ignore this:
+					<input class='edit' type="email" name="f21939d1d0fecac067e1befdb4efdaefa" id="f21939d1d0fecac067e1befdb4efdaefa" size="40">
+					</div>
+					<input class='edit' type="email" name="f4cd629c5334a0c66aab3748b95b774aa" id="f4cd629c5334a0c66aab3748b95b774aa" size="40" value="">
+					<span class='notice'>not displayed and no spam.</span>
+					<div style="display:none">
+					Leave this empty:
+					<input class='edit' type="email" name="f94b0c100d54c4e617761fc3065825a67" id="f94b0c100d54c4e617761fc3065825a67" size="40">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class='label'>www</div>
+				</td>
+				<td>
+					<input class='edit' type="url" name="fcef3884a546a51da7a42bd7b6142c7d6" id="fcef3884a546a51da7a42bd7b6142c7d6" size="40" value="">
+					<span class='notice'>not searched.</span>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<div class='notice'>Name and either email or www are required.</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div align="center" style="display:none">
+						Don't put anything here:
+						<textarea name="f9ba45608b2d1e43b399f8842030785b3" id="f9ba45608b2d1e43b399f8842030785b3" rows="7" cols="77" style='width:100%'></textarea>
+					</div>
+					<div align="center">
+						<textarea name="f7255e0a5c174194ee48adcab50a53289" id="f7255e0a5c174194ee48adcab50a53289" rows="7" cols="77" style='width:100%'></textarea>
+					</div>
+					<div align="center" style="display:none">
+						Leave this empty:
+						<textarea name="f531dcbe4b6fe268648e543f5606cb51b" id="f531dcbe4b6fe268648e543f5606cb51b" rows="7" cols="77" style='width:100%'></textarea>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class='notice' align='right'>
+					URLs auto-link and some tags are allowed: &lt;a>&lt;b>&lt;i>&lt;p>&lt;br>&lt;pre>.
+				</td>
+			</tr>
+			<tr valign="top">
+				<td colspan="2">
+					<div align="right">
+						<label for="cbnotify">
+							<input type="checkbox" name="f86d83b01808f550d02afbaaa1568d8da" id="cbnotify" >
+							<span class='label'>Email me future comments</span>
+						</label>&#160;&#160;
+						<input id="previewbtn" type="submit" name="fcb5d3918863d966884f9174716ff4811" value="preview >>">
+						<span style="display:none">
+						<input type="submit" name="f2c13c07730576b9d6f9b6ee16cc17cc9" value="I'm a spambot">
+						</span>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<input type='hidden' name='f73f61423800715de87813c608afab2c7' value='code/modules/id3reader.html'>
+		<input type='hidden' name='spinner' value='7058cdc0e8cf4be4f867e1472764038d'>
+		<input type='hidden' name='fa47368c2f9c5d47662e877ad10337f9a' value='1295724448'>
+
+
+
+	</form>
+</div>
+</div>
+
+</div>
+</div></td><td id='menu' valign='top'><div class='sidebar'>
+
+
+<div class='blogroll'><ul class='first'><li>Search this site:
+            
+<form action="http://www.google.com/cse" id="searchbox_007818501792991951010:s9hiibxg-ty" style="margin-top:6px;"><input type="hidden" name="cx" value="007818501792991951010:s9hiibxg-ty"><table cellpadding='0' cellspacing='0'><tr><td valign='middle'><input type="text" name="q" style='border:1px solid #7e9db9;padding:2px;width:144px;height:16px;'></td><td valign='middle'><input id="submit" type="image" title="Search" src="/pix/search.png"></td></tr></table></form><script type="text/javascript">
+    (function() {
+        var f = document.getElementById('searchbox_007818501792991951010:s9hiibxg-ty');
+        if (f && f.q) {
+            var q = f.q;
+            var b = function() {
+                if (q.value == '') {
+                    q.style.background = '#fff url(http:\x2F\x2Fwww.google.com\x2Fcoop\x2Fintl\x2Fen\x2Fimages\x2Fgoogle_custom_search_watermark.gif) left no-repeat';
+                }
+            };
+            var f = function() {
+                q.style.background = '#fff';
+            };
+            q.onfocus = f;
+            q.onblur = b;
+            if (!/[&?]q=[^&]/.test(location.search)) {
+                b();
+            }
+        }
+    })();
+</script></li><li class='first'><a href='/site/aboutned.html' rel='author'>About me</a></li><li>You might like:
+            <ul class='compact'><li>&#xbb;&#xa0;<a href='/blog'>My blog</a></li><li>&#xbb;&#xa0;<a href='http://susansenator.com/makingpeace.html'>My wife's books</a><br><a href='http://susansenator.com/makingpeace.html'><img src='pix/makingpeacetiny.png' alt='Making Peace With Autism' width='83' height='127' style='margin: 10px 0 0 0'></a> <a href='http://susansenator.com/survivalguide.html'><img src='pix/survivalguidetiny.png' alt='Autism Mom&#39;s Survival Guide' width='86' height='121' style='margin: 10px 0 0 10'></a></li></ul></li><li><iframe src='tabblo_badge_recent.html' width='175' height='211' frameborder='0' scrolling='no'></iframe></li></ul></div>
+
+</div></td></tr><tr><td id='copyright' colspan='2'><p class='copyright'><a rel='copyright license' href='/site/legal.html'>
+                            &#xa9; Copyright
+                            
+                                2004&ndash;2006,
+                            
+                            Ned Batchelder
+                        </a></p></td></tr></table></center></body></html>

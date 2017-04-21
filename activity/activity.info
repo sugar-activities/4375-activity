@@ -1,0 +1,8 @@
+[Activity]
+name = Radio
+activity_version = 9
+service_name = org.laptop.wiki.radio
+exec = launcher
+icon = activity-icon
+mime_types = audio/x-mpegurl;audio/x-scpls;audio/mpeg
+

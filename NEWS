@@ -1,0 +1,14 @@
+12/18/10
+v0: 1st ver not released
+12/19/10 
+v1: new mpg123, button border, stop button, delay fix
+12/26/10
+v2: yay awesome JOURNAL SUPPORT!!!!! & branched to shoutcast activity, icon from helix activity.
+12/28/10
+v3: stop music on quit, fix keep, default folder to /media, rainbow fixs (os.system -> 
+subprocess.Popen), delete unused icon from bar, renamed to Radio(Kids in 3rd world 
+countries probably wont know what shoutcast is), &new radio icon to go along w/ it 
+12/29/10
+v4: do not make a journal entry, don't hardcode bundle path, play button now resumes 
+journal loaded file, stop old one on playing new file, can copy selected sd/usb file to 
+journal, changed toolbar a bit
